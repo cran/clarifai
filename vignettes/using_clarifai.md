@@ -16,14 +16,14 @@ vignette: >
 To get the current development version from GitHub:
 
 
-```{r, eval=F}
+```r
 # install.packages("devtools")
 devtools::install_github("soodoku/clarifai")
 ```
 
 #### Load up the lib:
 
-```{r, eval=F}
+```r
 library(clarifai)
 ```
 
@@ -31,13 +31,13 @@ library(clarifai)
 
 Start by setting Client ID and secret, which you can get from [https://developer.clarifai.com/](https://developer.clarifai.com/)
 
-```{r, eval=F}
+```r
 secret_id(c("client_id", "secret"))
 ```
 
 Next, get the token (the function also sets it):
 
-```{r, eval=F}
+```r
 get_token()
 ```
 
@@ -45,7 +45,7 @@ get_token()
 
 Get information about your application:
 
-```{r, eval=F}
+```r
 get_info()
 ```
 
@@ -59,14 +59,31 @@ We are now all set. Let's play. Get tags of a remote image:
 
 ![Metro North](http://www.clarifai.com/img/metro-north.jpg)
 
-```{r, eval=F}
+```r
 res <- tag_image_urls("http://www.clarifai.com/img/metro-north.jpg")
 head(res)
 ```
 
+```
+##                                       img_url           tags
+## 1 http://www.clarifai.com/img/metro-north.jpg          train
+## 2 http://www.clarifai.com/img/metro-north.jpg       railroad
+## 3 http://www.clarifai.com/img/metro-north.jpg        station
+## 4 http://www.clarifai.com/img/metro-north.jpg           rail
+## 5 http://www.clarifai.com/img/metro-north.jpg transportation
+## 6 http://www.clarifai.com/img/metro-north.jpg       platform
+##               probs
+## 1 0.999398589134216
+## 2 0.998031497001648
+## 3 0.997042655944824
+## 4 0.995042085647583
+## 5 0.995012819766998
+## 6 0.994919180870056
+```
+
 Get tags for a local image:
 
-```{r, eval=F}
+```r
 path <- system.file("inst/extdata/", package = "clarifai")
 filep <- paste0(path, "/metro-north.jpg")
 tag_images(filep)
@@ -76,6 +93,13 @@ Provide feedback about tags for an image, including suggesting new tags, suggest
 
 #### Provide Feedback
 
-```{r, eval=F}
+
+```r
 feedback(file_path="path_to_image", feedback_type="add_tags", feedback_value="suggested_tag")
+
+## $status_code
+## [1] "OK"
+
+## $status_msg
+## [1] "Feedback successfully recorded. "
 ```

@@ -1,6 +1,6 @@
 Package: clarifai
 Title: Access to Clarifai API
-Version: 0.1
+Version: 0.2
 Authors@R: person("Gaurav", "Sood", email = "gsood07@gmail.com", role = c("aut", "cre"))
 Maintainer: Gaurav Sood <gsood07@gmail.com>
 Description: Get description of images from Clarifai API. For more information,
@@ -15,9 +15,9 @@ LazyData: true
 VignetteBuilder: knitr
 Imports: curl, jsonlite
 Suggests: knitr, testthat
-RoxygenNote: 5.0.0
+RoxygenNote: 5.0.1
 NeedsCompilation: no
-Packaged: 2015-11-11 23:54:38 UTC; gaurav
+Packaged: 2015-12-10 23:52:50 UTC; gaurav
 Author: Gaurav Sood [aut, cre]
 Repository: CRAN
-Date/Publication: 2015-11-12 12:58:15
+Date/Publication: 2015-12-11 13:30:58
