@@ -10,33 +10,38 @@ vignette: >
 
 ## Analyzing Politician Instagram Accounts Using clarifai
 
-```{r load_instagram, eval=FALSE}
+
+```r
 library(instaR)
 ```
 
 To use the instagram API, go to [https://instagram.com/developer/](https://instagram.com/developer/) and click on manage client and then register a client. Choose a name etc. For website and redirect URL, write in localhost:1410. This will give you client ID and secret. Plug these in as follows:
 
-```{r insta_auth, eval=FALSE}
+
+```r
 my_oauth <- instaOAuth(app_id="1f1f8228974248ba804b4c02fb3c082f", app_secret="a8a727a6b21e488988207686c88ec49e")
 save(my_oauth, file="my_oauth")
 ```
 
 Now it is time to load clarifai:
 
-```{r load_clarifai, eval=FALSE}
+
+```r
 library(clarifai)
 ```
 
 Clarifai ships with instagram handles of politicians. Load the file using:
 
-```{r get_data, eval=FALSE}
+
+```r
 filepath <- system.file("inst/extdata/congress.csv", package = "clarifai")
 pols <- read.csv(filepath)
 ```
 
 Next, download data from instagram: 
 
-```{r download_data, eval=FALSE}
+
+```r
 # getUserMedia(pols$instagram[1], token=my_oauth)
 
 res <- list()
@@ -55,8 +60,8 @@ res2 <- do.call(rbind, res) # nrow = 8088 (may change for runs in the future)
 
 Merge it with some pols data
 
-```{r merge_write, eval=FALSE}
- 
+
+```r
 # Get pols data ready
 small_pols <- pols[,c("first_name", "last_name", "party", "instagram", "dw_nominate")]
 small_pols_2 <- subset(small_pols, instagram!="") # take out no username/NA
@@ -70,8 +75,8 @@ small_pols_2[match(res2$username, small_pols_2$instagram),]
 
 Now, get image labels from clarifai: 
 
-```{r get_clarifai_labels, eval=FALSE}
 
+```r
 labs <- list()
 # Not implemented optimally. 
 # You can push all images at once. And that is the best than 8k requests.
@@ -84,8 +89,8 @@ labs_df <- do.call(rbind, labs)
 
 Next merge the labels back into the data: 
 
-```{r merge_and_save, eval=FALSE}
 
+```r
 # Merge 
 labs_df[,names(res2)] <- res2[match(labs_df$img_url, res2$image_url),]
 
@@ -95,11 +100,13 @@ labs_df[,names(res2)] <- res2[match(labs_df$img_url, res2$image_url),]
 
 Let us analyze data. Popular tags: 
 
-```{r pop_tags, eval=FALSE}
+
+```r
 head(table(labs_df$tags)[order(-table(labs_df$tags))], 40)
 ```
 
-```{r out_pop, eval=FALSE}
+
+```r
 ## people    politics       adult         men       group  government    business       women    portrait      leader 
 ##       1592        1137        1132         999         910         795         793         773         763         670 
 ##   clothing  politician   education      speech    election     indoors     meeting        room competition        many 
@@ -108,36 +115,41 @@ head(table(labs_df$tags)[order(-table(labs_df$tags))], 40)
 
 Do Republican instagram accounts have more photos with military tags than Democrats? 
 
-```{r military, eval=FALSE}
+
+```r
 table(grepl("military", labs_df$tags), labs_df$party)
 ```
 
-```{r out_mil, eval=FALSE}
+
+```r
 ##           D     R
 ##  FALSE 19806 16030
 ##  TRUE     94    90
-
 ```
 
 How about women?
 
-```{r women, eval=FALSE}
+
+```r
 table(grepl("women", labs_df$tags), labs_df$party)
 ```
 
-```{r out_women, eval=FALSE}
+
+```r
 ##           D     R
 ##  FALSE 19458 15853
 ##  TRUE    442   267
 ```
 
-```{r men, eval=FALSE}
+
+```r
 table(grepl("men", labs_df$tags), labs_df$party)
 ```
 
 See also for men: 
 
-```{r out_men, eval=FALSE}
+
+```r
 ##            D     R
 ##  FALSE 18265 14978
 ##  TRUE   1635  1142
@@ -145,12 +157,13 @@ See also for men:
 
 Protest?
 
-```{r protest, eval=FALSE}
+
+```r
 table(grepl("protest", labs_df$tags), labs_df$party)
 ```
 
-```{r out_protest, eval=FALSE}
-      
+
+```r
 ##           D     R
 ##  FALSE 19734 16024
 ##  TRUE    166    96
