@@ -15,7 +15,7 @@
 #  get_info()
 
 ## ---- eval=F-------------------------------------------------------------
-#  res <- tag_image_urls("http://www.clarifai.com/img/metro-north.jpg")
+#  res <- tag_image_urls("https://raw.githubusercontent.com/soodoku/clarifai/master/inst/extdata/metro-north.jpg")
 #  head(res)
 
 ## ---- eval=F-------------------------------------------------------------
