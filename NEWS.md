@@ -1,3 +1,11 @@
+# clarifai 0.4
+
+* Rationalized internals. GET and POST abstracted out, except for feedback
+* Better documentation.
+* Supports color for remote images, models
+* Return for image tags was changed by clarifai, adjusted code to handle that
+* Supports languages
+
 # clarifai 0.3.1
 
 * Clarifai removed link to metro north. Fixed that by changing to GitHub.

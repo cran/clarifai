@@ -4,15 +4,25 @@
 \alias{tag_image_urls}
 \title{Tag Remote Images}
 \usage{
-tag_image_urls(img_urls = NULL, meta = FALSE, simplify = TRUE)
+tag_image_urls(img_urls = NULL, model = NULL, language = NULL,
+  meta = FALSE, simplify = TRUE, ...)
 }
 \arguments{
 \item{img_urls}{A string or character vector of URLs of images for which you want tags}
 
+\item{model}{For topic specific answers. Optional. 
+Can be one of the following: general-v1.3, nsfw-v1.0, weddings-v1.0, travel-v1.0, food-items-v0.1
+Default is NULL}
+
+\item{language}{Return tag in another language than english. 2 digit code. Optional. 
+See \code{list{get_langs}} for the supported languages and their 2 digit codes.}
+
 \item{meta}{Boolean that toggles whether or not you want the entire object.}
 
 \item{simplify}{Boolean that toggles whether or not you want a simplified data frame with
-each label and associated probability in a separate row. Default is TRUE.
+each label and associated probability in a separate row. Default is TRUE.}
+
+\item{\dots}{Additional arguments passed to \code{\link{clarifai_POST}}.
 
 The entire object returned by the API contains a lot of meta data. 
 By default a simplified data.frame with img_url, associated labels, and probabilities is returned.}
@@ -22,16 +32,16 @@ If meta is TRUE, a named list of length 4 with following elements is returned:
 \code{status_code} OK or not
 \code{status_msg}  Successful or not
 \code{meta} Named list of 1 containing another list named \code{tag}
-Sublist \code{tag} has three elements: timestamp, model and config
+Sublist \code{tag} has three elements: \code{timestamp}, \code{model} and \code{config}
 \code{results} is a data.frame of length 6 and 1 row. Column names are:
 \code{docid}, \code{status_code}, \code{status_msg}, \code{local_id} and 
 a data.frame named tag which has a data.frame result which contains two columns: 
 labels and probabilities
 
-If meta is FALSE and simplify is TRUE,
-a data.frame with three columns: img_urls, labels and probs returned
+If \code{meta} is FALSE and \code{simplify} is TRUE,
+a data.frame with three columns: \code{img_urls}, \code{labels} and \code{probs} returned
 
-If meta is FALSE and simplify is FALSE,
+If \code{meta} is FALSE and \code{simplify} is FALSE,
 a data.frame with two columns carrying a vector of labels, vector of probs is returned
 for each image
 }
@@ -40,7 +50,10 @@ Tag Remote Images
 }
 \examples{
 \dontrun{
-tag_image_urls(img_url="url_of_image")
+tag_image_urls(img_urls="url_of_image")
+tag_image_urls("https://samples.clarifai.com/metro-north.jpg")
+tag_image_urls("https://samples.clarifai.com/metro-north.jpg", language="es")
+tag_image_urls("https://samples.clarifai.com/nsfw.jpg", model="nsfw-v1.0")
 }
 }
 \references{

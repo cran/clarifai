@@ -4,15 +4,25 @@
 \alias{tag_images}
 \title{Tag Images on the Computer}
 \usage{
-tag_images(file_paths = NULL, meta = FALSE, simplify = TRUE)
+tag_images(file_paths = NULL, model = NULL, language = NULL,
+  meta = FALSE, simplify = TRUE, ...)
 }
 \arguments{
 \item{file_paths}{a vactor of paths to image file(s) for which you want tags}
 
+\item{model}{For topic specific answers. Optional. 
+Can be one of the following: general-v1.3, nsfw-v1.0, weddings-v1.0, travel-v1.0, food-items-v0.1
+Default is NULL}
+
+\item{language}{Return tag in another language than english. 2 digit code. Optional. 
+See \code{list{get_langs}} for the supported languages and their 2 digit codes.}
+
 \item{meta}{Boolean that toggles whether or not you want the entire object.}
 
 \item{simplify}{Boolean that toggles whether or not you want a simplified data frame with
-each label and associated probability in a separate row. Default is TRUE.
+each label and associated probability in a separate row. Default is TRUE.}
+
+\item{...}{Additional arguments passed to \code{\link{clarifai_POST}}.
 
 The entire object returned by the API contains a lot of meta data. 
 By default a simplified data.frame with img_url, associated labels, and probabilities is returned.}

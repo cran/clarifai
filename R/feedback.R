@@ -3,26 +3,31 @@
 #' Suggest tags, suggest removal of tags, suggest (dis)similar documents, or let clarifai know which tag was clicked on 
 #' 
 #' @param feedback_type must be one of the following types:
-#' add_tags vector of suggested tags; default
-#' remove_tags vector of tags you suggest be removed
-#' search_click which tag(s) where clicked on
-#' similar_docids similar documents 
-#' dissimilar_docids dissimilar documents
+#' \code{add_tags} vector of suggested tags; default
+#' \code{remove_tags} vector of tags you suggest be removed
+#' \code{search_click} which tag(s) where clicked on
+#' \code{similar_docids} similar documents 
+#' \code{dissimilar_docids} dissimilar documents
 #' @param file_path image on which the feedback is being provided
 #' @param feedback_value what tags to add, remove etc.
+#' @param \dots Additional arguments passed to \code{\link{clarifai_POST}}.
+#' 
 #' 
 #' @export
-#' @references \url{https://developer.clarifai.com/}
+#' 
+#' @references \url{https://developer.clarifai.com/guide/}
+#' 
 #' @examples \dontrun{
 #' feedback(file_path="path_to_image", feedback_type="add_tags", feedback_value="suggested_tag")
 #' }
+#' 
 
-feedback <- function(file_path = "", feedback_type='add_tags', feedback_value="") {
+feedback <- function(file_path = "", feedback_type='add_tags', feedback_value="", ...) {
    
     clarifai_check_token()
 
-    if(!file.exists(file_path)) stop("File Doesn't Exist. Please check the path.")
-    if(identical(feedback_value, "")) stop("Provide something other than an empty string as feedback.")
+    if(!file.exists(file_path)) stop("File doesn't exist. Please check file_path again.", call. = FALSE)
+    if(identical(feedback_value, "")) stop("Please provide something other than an empty string as feedback.", call. = FALSE)
 
     h <- new_handle()
 	handle_setopt(h,  customrequest = "POST")
