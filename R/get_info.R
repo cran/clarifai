@@ -13,20 +13,24 @@
 #' Prints \code{status_msg} by default 
 #' 
 #' @export
+#' 
 #' @references \url{https://developer.clarifai.com/}
+#' 
 #' @examples \dontrun{
+#' 
+#' # Before calling the function, set API secret and id via secret_id(c("client_id", "secret")) 
+#' # and get token via get_token()
+#' 
 #' get_info()
 #' }
 
 get_info <- function(...) {
-
-	clarifai_check_token()
 	
 	info <- clarifai_GET(path="info/", query=NULL, ...)
 
 	# Print some important things
 	cat("Status message: ", info$status_msg, "\n")
 
-	return(invisible(info))
+	info
 
 }

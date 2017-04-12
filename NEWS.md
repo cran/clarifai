@@ -1,4 +1,15 @@
-# clarifai 0.4
+# clarifai 0.4.2
+
+* Letting go of invisible returns as they seem to confuse people
+* Moved clarifai_check_token to POST with exception for get_token
+* 
+
+# clarifai 0.4.1
+
+* Moved clarifai_check_token() to clarifai_GET() for functions that rely on clarifai_GET()
+* Added a comment asking people to call secret_id() and get_token() in each example
+
+# clarifai 0.4.0
 
 * Rationalized internals. GET and POST abstracted out, except for feedback
 * Better documentation.

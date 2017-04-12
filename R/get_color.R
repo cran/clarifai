@@ -14,12 +14,14 @@
 #' @references \url{https://developer.clarifai.com/}
 #' 
 #' @examples \dontrun{
+#' 
+#' # Before calling the function, set API secret and id via secret_id(c("client_id", "secret")) 
+#' # and get token via get_token()
+#' 
 #' get_color(file_paths="path_to_image")
 #' }
 
 get_color <- function(file_paths=NULL, ...) {
-
-	clarifai_check_token()
         
     if (! all(file.exists(file_paths))) stop("One or more of the files don't exist. Please check the path.", call. = FALSE)
 
@@ -28,6 +30,6 @@ get_color <- function(file_paths=NULL, ...) {
 
 	color <- clarifai_POST(path="color/", query, ...)
 
-	return(invisible(color))
+	color
 
 }

@@ -8,18 +8,21 @@
 #' 
 #' @export
 #' @references \url{https://developer.clarifai.com/}
+#' 
 #' @examples \dontrun{
+#' 
+#' # Before calling the function, set API secret and id via secret_id(c("client_id", "secret")) 
+#' # and get token via get_token()
+#' 
 #' get_langs()
 #' }
 
 get_langs <- function(...) {
-
-	clarifai_check_token()
 	
 	info <- clarifai_GET(path="info/languages/", query=NULL, ...)
 
 	langs <- unname(unlist(info[grepl("languages", names(info))]))
 
-	return(invisible(langs))
+	langs
 
 }

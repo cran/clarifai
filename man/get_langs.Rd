@@ -17,10 +17,13 @@ List all the languages that the tag API call supports
 }
 \examples{
 \dontrun{
+
+# Before calling the function, set API secret and id via secret_id(c("client_id", "secret")) 
+# and get token via get_token()
+
 get_langs()
 }
 }
 \references{
 \url{https://developer.clarifai.com/}
 }
-
